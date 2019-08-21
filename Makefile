@@ -12,10 +12,6 @@ TARGET_PREFIX ?= riscv64-unknown-elf-
 # toolchain path - if any - optional extra path string for the objcopy tool
 TOOLCHAIN_PATH ?=
 
-ifeq ($(HOST_PREFIX),x86_64-w64-mingw32-)
-	EXEC_SUFFIX ?= .exe
-endif
-
 .PHONY: all install
 all: util/freedom-bin2hex$(EXEC_SUFFIX) bin/bin2hex bin/elf2hex bin/elf2bin
 
