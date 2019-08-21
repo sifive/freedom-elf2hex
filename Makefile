@@ -12,7 +12,7 @@ TARGET_PREFIX ?= riscv64-unknown-elf-
 # toolchain path - if any - optional extra path string for the objcopy tool
 TOOLCHAIN_PATH ?=
 
-ifeq ($(CROSSPREFIX),x86_64-w64-mingw32-)
+ifeq ($(HOST_PREFIX),x86_64-w64-mingw32-)
 	EXEC_SUFFIX ?= .exe
 endif
 
