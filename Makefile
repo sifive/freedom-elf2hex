@@ -16,7 +16,7 @@ TOOLCHAIN_PATH ?=
 all: util/freedom-bin2hex$(EXEC_SUFFIX) bin/bin2hex bin/elf2hex bin/elf2bin
 
 util/freedom-bin2hex$(EXEC_SUFFIX): util/freedom-bin2hex.c
-	$(HOST_PREFIX)gcc -o $@ $<
+	$(HOST_PREFIX)gcc -std=c99 -o $@ $<
 
 bin/bin2hex: bin/freedom-bin2hex.sh
 	cat $< > $@
