@@ -1,7 +1,8 @@
 
 # which gcc compiler to use for compiling freedom-bin2hex
-HOST_PREFIX ?=
-EXEC_SUFFIX ?=
+CROSSPREFIX ?=
+BINEXT ?=
+CC ?=
 
 # where to install all the artifacts of a freedom-elf2hex build
 INSTALL_PATH ?=
@@ -13,10 +14,10 @@ TARGET_PREFIX ?= riscv64-unknown-elf-
 TOOLCHAIN_PATH ?=
 
 .PHONY: all install
-all: util/freedom-bin2hex$(EXEC_SUFFIX) bin/bin2hex bin/elf2hex bin/elf2bin
+all: util/freedom-bin2hex$(BINEXT) bin/bin2hex bin/elf2hex bin/elf2bin
 
-util/freedom-bin2hex$(EXEC_SUFFIX): util/freedom-bin2hex.c
-	$(HOST_PREFIX)gcc -std=c99 -o $@ $<
+util/freedom-bin2hex$(BINEXT): util/freedom-bin2hex.c
+	$(CROSSPREFIX)$(CC) -std=c99 -o $@ $<
 
 bin/bin2hex: bin/freedom-bin2hex.sh
 	cat $< > $@
@@ -30,10 +31,10 @@ bin/elf2bin: bin/freedom-elf2bin.sh
 	cat $< | sed 's:X_TARGET_PREFIX_X:$(TARGET_PREFIX):g' | sed 's:X_TOOLCHAIN_PATH_X:$(TOOLCHAIN_PATH):g' > $@
 	chmod +x $@
 
-install: util/freedom-bin2hex$(EXEC_SUFFIX) bin/bin2hex bin/elf2hex bin/elf2bin
-	rm -rf $(INSTALL_PATH)/util/freedom-bin2hex$(EXEC_SUFFIX)
+install: util/freedom-bin2hex$(BINEXT) bin/bin2hex bin/elf2hex bin/elf2bin
+	rm -rf $(INSTALL_PATH)/util/freedom-bin2hex$(BINEXT)
 	mkdir -p $(INSTALL_PATH)/util
-	cp util/freedom-bin2hex$(EXEC_SUFFIX) $(INSTALL_PATH)/util/freedom-bin2hex$(EXEC_SUFFIX)
+	cp util/freedom-bin2hex$(BINEXT) $(INSTALL_PATH)/util/freedom-bin2hex$(BINEXT)
 	rm -rf $(INSTALL_PATH)/bin/$(TARGET_PREFIX)bin2hex
 	rm -rf $(INSTALL_PATH)/bin/$(TARGET_PREFIX)elf2hex
 	rm -rf $(INSTALL_PATH)/bin/$(TARGET_PREFIX)elf2bin
@@ -43,4 +44,4 @@ install: util/freedom-bin2hex$(EXEC_SUFFIX) bin/bin2hex bin/elf2hex bin/elf2bin
 	cp bin/elf2bin $(INSTALL_PATH)/bin/$(TARGET_PREFIX)elf2bin
 
 clean:
-	rm -rf util/freedom-bin2hex$(EXEC_SUFFIX) bin/bin2hex bin/elf2hex bin/elf2bin
+	rm -rf util/freedom-bin2hex$(BINEXT) bin/bin2hex bin/elf2hex bin/elf2bin
