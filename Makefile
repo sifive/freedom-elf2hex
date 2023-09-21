@@ -3,6 +3,7 @@
 CROSSPREFIX ?=
 BINEXT ?=
 CC ?=
+LDFLAGS ?=
 
 # where to install all the artifacts of a freedom-elf2hex build
 INSTALL_PATH ?=
@@ -17,7 +18,7 @@ TOOLCHAIN_PATH ?=
 all: util/freedom-bin2hex$(BINEXT) bin/bin2hex bin/elf2hex bin/elf2bin
 
 util/freedom-bin2hex$(BINEXT): util/freedom-bin2hex.c
-	$(CROSSPREFIX)$(CC) -std=c99 -o $@ $<
+	$(CROSSPREFIX)$(CC) -std=c99 $(LDFLAGS) -o $@ $<
 
 bin/bin2hex: bin/freedom-bin2hex.sh
 	cat $< > $@
