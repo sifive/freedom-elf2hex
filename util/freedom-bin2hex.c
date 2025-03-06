@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
 				fprintf(stderr, "No arg for --input|-i option.\n");
 				return 1;
 			}
-			input_stream = fopen(argv[++i], "r");
+			input_stream = fopen(argv[++i], "rb");
 		}
 		if ((strcmp(argv[i], "--output") == 0) || (strcmp(argv[i], "-o") == 0)) {
 			if ((i + 1) == argc) {
