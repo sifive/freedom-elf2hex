@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 				fprintf(stderr, "No arg for --output|-o option.\n");
 				return 1;
 			}
-			output_stream = fopen(argv[++i], "w");
+			output_stream = fopen(argv[++i], "wb");
 		}
 	}
 
